@@ -1,0 +1,42 @@
+{
+  "name": "spokenweb-archive-of-the-present",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve",
+    "lint": "eslint --ext .js,.vue src"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/proxy": "^2.0.0",
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
+    "debounce": "^1.2.0",
+    "express": "^4.17.1",
+    "moment-duration-format": "^2.3.2",
+    "nuxt": "^2.13.3",
+    "vue-moment": "^4.1.0",
+    "vue-scrollto": "^2.18.1",
+    "wavesurfer.js": "^4.0.1"
+  },
+  "devDependencies": {
+    "@nuxt/babel-preset-app": "^2.13.3",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "pug": "^3.0.0",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.2"
+  }
+}

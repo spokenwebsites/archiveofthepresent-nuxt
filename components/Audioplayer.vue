@@ -1,0 +1,320 @@
+<template lang="pug">
+#audioplayer.container-audio
+  .audio-play(@click="audioPlayPause")
+    span.oi.oi-media-play(v-if="status=='paused'")
+    span.oi.oi-media-pause(v-if="status=='playing'")
+  .container-waveform
+    #waveform.waveform
+  .time-container
+    span.currentTime {{ currentTime }}
+    span.timeslash /
+    span.duration {{ duration }}
+</template>
+<script>
+if (process.browser) {
+  var WaveSurfer = require('wavesurfer.js')
+}
+export default {
+  name: 'Audioplayer',
+  props: [
+    'event',
+    'audiofile',
+    'waveformFilename',
+    'waveformdata',
+    'audioHeight'
+  ],
+  data () {
+    return {
+      status: 'paused',
+      wavesurfer: null,
+      currentTime: '00:00',
+      duration: '00:00'
+    }
+  },
+  mounted () {
+    // this.audioInit()
+  },
+  methods: {
+
+    audioInit () {
+      this.wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#f4f4f4',
+        progressColor: '#df8028',
+        cursorColor: '#df8028',
+        barWidth: 1,
+        normalize: true,
+        height: this.audioHeight || 24,
+        responsive: true,
+        backend: 'MediaElement',
+        closeAudioContext: true,
+        partialRender: true
+      })
+
+      this.$nextTick(() => {
+        if (this.audioHeight) {
+          console.log(1)
+          console.log(window.innerWidth)
+          if (window.innerWidth < 992) {
+            this.wavesurfer.setHeight(24)
+          } else {
+            this.wavesurfer.setHeight(this.audioHeight)
+          }
+          window.addEventListener('resize', () => {
+            if (window.innerWidth < 992) {
+              this.wavesurfer.setHeight(24)
+            } else {
+              this.wavesurfer.setHeight(this.audioHeight)
+            }
+          })
+        }
+      })
+
+      this.loadWaveform()
+
+      const wavesurfer = this.wavesurfer
+      // wavesurfer.load(this.audiofile)
+
+      // console.log('http://localhost:3000' + this.audiofile)
+
+      // this.wavesurfer.setHeight(34)
+
+      wavesurfer.on('play', () => {
+        console.log('play')
+        this.status = 'playing'
+      })
+
+      wavesurfer.on('pause', () => {
+        this.status = 'paused'
+        console.log('pause')
+      })
+
+      wavesurfer.on('finish', () => {
+        wavesurfer.seekTo(0)
+        this.currentTime = this.$moment.duration(wavesurfer.getCurrentTime(), 'seconds').format('mm:ss', { trim: 'false' })
+      })
+
+      wavesurfer.on('ready', () => {
+    		this.duration = parseInt(this.wavesurfer.getDuration())
+        if (this.duration / 60 < 60) {
+          this.currentTime = this.$moment.duration(wavesurfer.getCurrentTime(), 'seconds').format('mm:ss', { trim: 'false' })
+          this.duration = this.$moment.duration(wavesurfer.getDuration(), 'seconds').format('mm:ss', { trim: 'false' })
+        } else {
+          this.currentTime = this.$moment.duration(wavesurfer.getCurrentTime(), 'seconds').format('hh:mm:ss', { trim: 'false' })
+          this.duration = this.$moment.duration(wavesurfer.getDuration(), 'seconds').format('hh:mm:ss', { trim: 'false' })
+        }
+      })
+
+      wavesurfer.on('audioprocess', () => {
+    		this.duration = parseInt(wavesurfer.getDuration())
+
+        if (this.duration / 60 < 60) {
+          this.currentTime = this.$moment.duration(wavesurfer.getCurrentTime(), 'seconds').format('mm:ss', { trim: 'false' })
+          this.duration = this.$moment.duration(wavesurfer.getDuration(), 'seconds').format('mm:ss', { trim: 'false' })
+        } else {
+          this.currentTime = this.$moment.duration(wavesurfer.getCurrentTime(), 'seconds').format('hh:mm:ss', { trim: 'false' })
+          this.duration = this.$moment.duration(wavesurfer.getDuration(), 'seconds').format('hh:mm:ss', { trim: 'false' })
+        }
+      })
+    },
+
+    loadWaveform () {
+      const waveform = require('../static/waveforms/' + this.waveformFilename)
+      // console.log(waveform)
+      // const peaksArray = this.waveformdata
+      const peaksArray = waveform.data
+
+      this.wavesurfer.loadMediaElement(this.audiofile, peaksArray.map(p => p / 128), true, this.wavesurfer.getDuration())
+
+      // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      //   wavesurfer.load(this.audiofile, peaksArray.map(p => p / 30000))
+      // } else {
+      //   wavesurfer.load(this.audiofile)
+      //   wavesurfer.backend.peaks = peaksArray.map(p => p / 30000)
+      // }
+    },
+
+    audioPlayPause () {
+      this.wavesurfer.playPause()
+      //    if (this.status === 'playing') this.status = 'paused'
+    //  else this.status = 'playing'
+    },
+
+    audioDestroy () {
+      this.wavesurfer.destroy()
+      this.wavesurfer = null
+      console.log(this.wavesurfer)
+    }
+
+  },
+  computed: {
+
+  }
+}
+</script>
+<style lang="sass">
+$headerHeight: 61px
+$black: #303030
+$white: #f4f4f4
+$red: #945043
+$red-faded: #94504385
+$orange: #df8028
+$dark-gray: #444c4c
+$border-dark-gray: #5f5f5f
+$light-gray: #cecece
+
+.container-audio
+  margin-top: 1.5rem
+  margin-bottom: 1.5rem
+  background: $red
+  padding: 10px
+  border-radius: 28px
+  position: relative
+
+  .audio-play
+    width: 36px
+    position: relative
+    height: 36px
+    margin-bottom: -36px
+    top: -3px
+    text-align: center
+    color: $red
+    background: $white
+    border-radius: 36px
+
+    .oi-media-play
+      display: block
+      top: 10px
+      left: 2px
+      font-size: 18px
+      position: relative
+
+    .oi-media-pause
+      display: block
+      top: 10px
+      left: 0px
+      font-size: 18px
+      position: relative
+
+  .container-waveform
+    border-radius: 0px
+    margin-left: 55px
+    margin-top: -36px
+    background: transparent
+    padding: 3px
+    position: relative
+
+    .waveform
+      width: 78%
+      position: relative
+
+  .time-container
+    font-size: 13px
+    top: 15px
+    right: 20px
+    margin-top: 0px
+    text-align: right
+    display: inline-block
+    position: absolute
+    color: $white
+
+@media (min-width: 992px)
+
+  .container-audio.size-lg
+    margin-top: 1.5rem
+    margin-bottom: 1.5rem
+    background: $red
+    padding: 15px
+    border-radius: 54px
+    position: relative
+
+    .audio-play
+      width: 54px
+      position: relative
+      height: 54px
+      margin-bottom: -54px
+      top: 2px
+      text-align: center
+      color: $red
+      background: $white
+      border-radius: 54px
+
+      .oi-media-play
+        display: block
+        top: 17px
+        left: 2px
+        font-size: 26px
+        position: relative
+
+      .oi-media-pause
+        display: block
+        top: 17px
+        left: 0px
+        font-size: 26px
+        position: relative
+
+    .container-waveform
+      border-radius: 0px
+      margin-left: 75px
+      margin-top: -56px
+      background: transparent
+      padding: 3px
+      position: relative
+
+      .waveform
+        width: 76%
+        position: relative
+
+    .time-container
+      font-size: 18px
+      margin-top: 0px
+      text-align: right
+      display: inline-block
+      position: absolute
+      right: 30px
+      top: 28px
+      color: $white
+
+@media (max-width: 1200px)
+  .container-audio.size-lg .container-waveform .waveform
+    width: 74%
+
+@media (max-width: 1024px)
+  .waveform
+    width: 70%
+    position: relative
+
+  .modal
+    .timeslash, .duration
+      display: none
+
+@media (max-width: 885px)
+  .waveform
+    width: 60%
+    position: relative
+
+@media (max-width: 768px)
+
+  .container-audio
+    .container-waveform
+      margin-left: 45px
+
+      .waveform
+        width: 60%
+        position: relative
+
+    .time-container
+      right: 12px
+
+      .timeslash, .duration
+        display: none
+
+@media (max-width: 576px)
+  .waveform
+    width: 50%
+
+@media (max-width: 460px)
+  span.hyphen
+    display: inline!important
+
+</style>
