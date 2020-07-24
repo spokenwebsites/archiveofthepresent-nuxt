@@ -1,27 +1,6 @@
 <template lang="pug">
 #home
-  header
-    b-navbar
-      b-container.flex-md-row-reverse
-        b-navbar-toggle(target="nav-text-collapse")
-        b-navbar-brand
-            b-link(href="https://spokenweb.ca/", target="_blank")
-              b-img(src="~/assets/img/logo_long_black.png", alt="SpokenWeb", height="34")
-    b-container
-      .row.align-items-md-center
-
-        .col-lg-4.col-md-5.pt-md-0.pt-5.px-4.px-md-0.mt-md-0.mt-auto
-          h4.mb-3.text-md-left.text-center
-            | SPOKENWEB ARCHIVE
-            br
-            | OF THE PRESENT
-          p.mb-md-4.mb-0.pt-2.pt-md-0.d-none.d-md-block Archive of the Present presents digital sound recordings, video, and print materials that document SpokenWeb events produced across the research network.
-          b-button.mt-4.d-none.d-md-block(variant="gradient", v-scroll-to="{el:'main', offset:-54}") MORE ABOUT THE ARCHIVE →
-        .col.offset-md-1.px-4.px-md-0.mb-5.mb-md-0
-          b-img.py-md-5.py-3.mb-3.mb-md-0.w-100(src="~/assets/img/header-img_1000.png", fluid, fluid-grow)
-          p.mb-4.d-block.d-md-none.text-center.text-md-left Archive of the Present presents digital sound recordings, video, and print materials that document SpokenWeb events produced across the research network.
-          b-button.mt-4.d-block.d-md-none.mb-5.mx-auto(variant="gradient") MORE ABOUT THE ARCHIVE →
-
+  Header(:title="title")
   main
     b-container
       .row.mt-5
@@ -92,18 +71,7 @@
 
       .text-center.mt-5
         b-link.btn.btn-red(:to="currentEvent.slug", role="button") More info
-
-  footer.pt-5.mt-5.pb-4
-    b-container
-      .row
-        .col-sm-6
-          p
-            b-link(href="https://spokenweb.ca", target="_blank") SpokenWeb Home
-        .col-sm-6.col-lg-5
-          p SpokenWeb is a SSHRC-funded partnership grant. All material that appears on this website is used for the purposes of academic research and critical study.
-          p
-            b-img(src="~/assets/img/sshrc_white.png", width="139")
-          p © 2010 - {{ new Date().getFullYear() }}. All rights reserved.
+  Footer
 </template>
 
 <script>

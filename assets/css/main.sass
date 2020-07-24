@@ -13,7 +13,7 @@ $light-gray: #cecece
   white-space: pre-wrap
 
 body, html
-  font-family: 'Futura', sans-serif
+  font-family: 'futura-pt', sans-serif
   font-size: 18px
   color: $black
   background: $white
@@ -45,6 +45,8 @@ header
     min-height: calc(100vh - #{$headerHeight})
 
   h4
+    font-family: 'futura-pt-bold', sans-serif
+    font-size: 1.65rem
     font-weight: bold
     line-height: 1.5
 
@@ -58,6 +60,7 @@ main
     border: 1px solid $light-gray
 
     h5, h6, .h5, .h6
+      font-family: 'futura-pt-bold', sans-serif
       font-weight: bold
       text-transform: uppercase
 
@@ -81,6 +84,7 @@ main
 
     label
       font-size: 0.75rem
+      font-family: 'futura-pt-bold', sans-serif
       font-weight: bold
       color: $red
 
@@ -97,10 +101,11 @@ main
 footer
   background: $black
   color: $white
-  font-size: 0.75rem
+  font-size: 0.8rem
 
   a
     color: $white
+    font-family: 'futura-pt-bold', sans-serif
     font-weight: bold
     &:hover
       color: $white
@@ -116,7 +121,7 @@ footer
   transition: all 0.3s
   &.btn-gradient
     background: linear-gradient( to right, $black, #883025 )
-    color: $white
+    color: $white!important
   &.btn-red
     background: $red
     color: $white
@@ -151,10 +156,12 @@ footer
 
   h1, .h1
     font-size: 3.6rem
+    font-family: 'futura-pt-bold', sans-serif
     font-weight: bold
     color: $dark-gray
 
   h2, .h2
+    font-family: 'futura-pt-bold', sans-serif
     font-weight: bold
     color: $dark-gray
 
@@ -167,6 +174,7 @@ footer
   h6, .h6
     color: $gray
     letter-spacing: 3.75px
+    font-family: 'futura-pt-bold', sans-serif
     font-weight: bold
     text-transform: uppercase
 

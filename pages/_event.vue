@@ -1,25 +1,10 @@
 <template lang="pug">
 #event
-  header
-    b-navbar
-      b-container.flex-md-row-reverse
-        b-navbar-toggle(target="nav-text-collapse")
-        b-navbar-brand
-            b-link(href="https://spokenweb.ca/", target="_blank")
-              b-img(src="~/assets/img/logo_long_black.png", alt="SpokenWeb", height="34")
-    b-container
-      p.mt-5.mb-3
-        b-link(to="/") ← Return
-      h4.text-md-left.px-3
-        | SPOKENWEB ARCHIVE
-        br
-        | OF THE PRESENT
-      hr
+  Header(:title="event.title")
   main
     b-container.page-content.mb-5
       .row
         .col-sm-10.offset-sm-1
-
           h5.pb-2.pt-4(v-if="event.dates.length > 1")
             span(v-for="(date, index) in event.dates" :key="'date'+index") {{ date | moment("MMMM D, YYYY") }}
           h5.pb-2.pt-4(v-else) {{ event.dates[0] | moment("MMMM D, YYYY") }}
@@ -82,18 +67,7 @@
       p.text-right
         strong
           a(v-if="modalPdf", :href="modalPdf", target="_blank") Download PDF
-
-  footer.pt-5.mt-5.pb-4
-    b-container
-      .row
-        .col-sm-6
-          p
-            b-link(href="https://spokenweb.ca", target="_blank") SpokenWeb Home
-        .col-sm-6.col-lg-5
-          p SpokenWeb is a SSHRC-funded partnership grant. All material that appears on this website is used for the purposes of academic research and critical study.
-          p
-            b-img(src="~/assets/img/sshrc_white.png", width="139")
-          p © 2010 - {{ new Date().getFullYear() }}. All rights reserved.
+  Footer
 </template>
 
 <script>
