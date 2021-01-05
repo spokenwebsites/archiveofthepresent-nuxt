@@ -1,12 +1,16 @@
-<template lang="pug">
-#app
-  nuxt
+<template>
+  <div id="app">
+    <Nuxt />
+  </div>
 </template>
 
-<style lang="sass">
-.fade-enter-active, .fade-leave-active
-  transition: opacity 350ms
-
-.fade-enter, .fade-leave-to
-  opacity: 0
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 350ms;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

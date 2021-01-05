@@ -3,19 +3,15 @@ export default {
   dev: (process.env.NODE_ENV !== 'production'),
 
   /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
-  mode: 'universal',
-  /*
-  ** Nuxt target
-  ** See https://nuxtjs.org/api/configuration-target
-  */
+   ** Nuxt target
+   ** See https://nuxtjs.org/api/configuration-target
+   */
+  ssr: true,
   target: 'static',
   /*
-  ** Headers of the page
-  ** See https://nuxtjs.org/api/configuration-head
-  */
+   ** Headers of the page
+   ** See https://nuxtjs.org/api/configuration-head
+   */
 
   head: {
     title: 'SpokenWeb Archive of the Present',
@@ -35,7 +31,7 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/css/main.sass'
+    '@/assets/css/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -76,7 +72,7 @@ export default {
 
   build: {
     extractCSS: true,
-    extend (config, ctx) {
+    extend(config, ctx) {
       config.module.rules.push(
         {
           test: /\.(ogg|mp3|wav|mpe?g)$/i,

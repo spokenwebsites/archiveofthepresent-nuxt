@@ -1,7 +1,6 @@
 export default {
   methods: {
-
-    join (array, value) {
+    join(array, value) {
       const parts = []
       if (value) {
         for (const part of array) {
@@ -15,7 +14,7 @@ export default {
       return parts.join(', ')
     },
 
-    debounce (fn, delay = 300) {
+    debounce(fn, delay = 300) {
       return ((...args) => {
         let timeout
         clearTimeout(timeout)
