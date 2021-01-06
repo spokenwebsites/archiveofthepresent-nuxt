@@ -53,7 +53,7 @@ export default {
   },
   computed: {},
   mounted() {
-    // this.audioInit()
+    this.audioInit()
   },
   methods: {
     audioInit() {
