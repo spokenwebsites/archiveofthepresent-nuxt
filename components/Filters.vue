@@ -1,5 +1,6 @@
 <template>
   <div class="filters">
+
     <label class="mr-sm-2 h6" for="keywords">Filter By</label>
     <b-form-input
       id="keywords"
@@ -11,54 +12,28 @@
       debounce="500"
       @input="setFilterKeywords($event)"
     ></b-form-input>
-    <label class="mr-sm-2" for="presenters">Presenters</label>
-    <b-form-select
-      id="presenters"
-      class="mb-4"
-      name="presenters"
-      :value="filters.presenters"
-      @change="resetFilters('presenters')"
-      @input="setFilterPresenters($event)"
-    >
-      <b-form-select-option value="">Show All</b-form-select-option>
-      <b-form-select-option
-        v-for="(presenter, index) in master.creators"
-        :key="'presenters' + index"
-        :value="presenter"
-      >{{ presenter }}</b-form-select-option>
-    </b-form-select>
-    <label class="mr-sm-2" for="performers">Performers</label>
-    <b-form-select
-      id="performers"
-      class="mb-4"
-      name="performers"
-      :value="filters.performers"
-      @change="resetFilters('performers')"
-      @input="setFilterPerformers($event)"
-    >
-      <b-form-select-option value="">Show All</b-form-select-option>
-      <b-form-select-option
-        v-for="(performer, index) in master.contributors"
-        :key="'performers' + index"
-        :value="performer"
-      >{{ performer }}</b-form-select-option>
-    </b-form-select>
-    <label class="mr-sm-2" for="years">Year</label>
-    <b-form-select
-      id="years"
-      class="mb-4"
-      name="years"
-      :value="filters.years"
-      @change="resetFilters('years')"
-      @input="setFilterYears($event)"
-    >
-      <b-form-select-option value="">Show All</b-form-select-option>
-      <b-form-select-option
-        v-for="(year, index) in master.years"
-        :key="'years' + index"
-        :value="year"
-      >{{ year }}</b-form-select-option>
-    </b-form-select>
+
+    <FilterSelect
+      label="Presenters"
+      type="presenters"
+      :data="master.presenters"
+    />
+    <FilterSelect
+      label="Performers"
+      type="performers"
+      :data="master.performers"
+    />
+    <FilterSelect
+      label="Speakers"
+      type="speakers"
+      :data="master.speakers"
+    />
+    <FilterSelect
+      label="Year"
+      type="years"
+      :data="master.years"
+    />
+
     <div class="text-center">
       <b-button variant="red" @click="resetFilters('none')">Reset Filters</b-button>
     </div>
@@ -68,8 +43,10 @@
 <script>
 import helpers from '@/mixins/helpers.js'
 import filters from '@/mixins/filters.js'
+import FilterSelect from '@/components/FilterSelect.vue'
 
 export default {
+  components: { FilterSelect },
   mixins: [helpers, filters],
   props: {
     events: {

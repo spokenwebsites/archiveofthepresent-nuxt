@@ -1,8 +1,20 @@
 <template>
-  <b-modal v-if="showMediaModal" id="modal" size="lg" no-fade hide-footer @hide="hideMediaModal">
+  <b-modal
+    v-if="showMediaModal"
+    id="modal"
+    size="lg"
+    no-fade
+    hide-footer
+    header-close-content=""
+    @hide="hideMediaModal"
+  >
     <b-container class="mb-5">
       <h6>{{ modalTitle }}</h6>
-      <b-img-lazy class="mt-2 mb-5 w-100" :src="modalImg.lg" :blank-src="modalImg.sm" />
+      <b-img-lazy
+        class="mt-2 mb-5 w-100"
+        :src="modalImg.lg"
+        :blank-src="modalImg.sm"
+      />
       <h5 class="mb-4">
         <strong>{{ modalData.title }}</strong>
       </h5>
@@ -21,11 +33,11 @@
   </b-modal>
 </template>
 <script>
-import events from '@/mixins/events.js'
+import media from '@/mixins/media.js'
 import modals from '@/mixins/modals.js'
 
 export default {
-  mixins: [events, modals]
+  mixins: [media, modals]
 }
 </script>
 <style lang="scss"></style>

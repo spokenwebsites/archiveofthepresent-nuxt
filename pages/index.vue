@@ -18,7 +18,7 @@
 import config from '@/nuxt.config.js'
 import axios from 'axios'
 import helpers from '@/mixins/helpers.js'
-import events from '@/mixins/events.js'
+import media from '@/mixins/media.js'
 import modals from '@/mixins/modals.js'
 import filters from '@/mixins/filters.js'
 import Filters from '@/components/Filters'
@@ -30,7 +30,7 @@ export default {
     Filters,
     FilteredEvents
   },
-  mixins: [helpers, events, filters, modals],
+  mixins: [helpers, media, filters, modals],
   async asyncData({ params }) {
     const path = config.dev
       ? process.env.DEV_EVENTS_PATH_FILE
@@ -51,6 +51,9 @@ export default {
         // { hid: 'description', name: 'description', content: 'My custom description' }
       ]
     }
+  },
+  mounted() {
+    console.log(this.events)
   }
 }
 </script>

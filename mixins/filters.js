@@ -6,24 +6,29 @@ export default {
         const presenters = this.filters.presenters.toLowerCase()
         // const years = this.filters.years.toLowerCase()
         const performers = this.filters.performers.toLowerCase()
+        const speakers = this.filters.speakers.toLowerCase()
         return (
           (event.title.toLowerCase().includes(keywords) ||
-            this.join(event.creators).toLowerCase().includes(keywords) ||
-            this.join(event.contributors).toLowerCase().includes(keywords) ||
+            this.joinNames(event.creators).toLowerCase().includes(keywords) ||
+            this.joinNames(event.contributors).toLowerCase().includes(keywords) ||
             event.year.toLowerCase().includes(keywords) ||
             event.location.details.city
               .toLowerCase()
               .normalize('NFD')
               .replace(/[\u0300-\u036F]/g, '')
               .includes(keywords)) &&
-          this.join(event.creators)
+          this.joinNames(event.creators)
             .toLowerCase()
             .trim()
             .includes(presenters.trim()) &&
-          this.join(event.contributors)
+          this.joinNames(event.performers)
             .toLowerCase()
             .trim()
-            .includes(performers.trim())
+            .includes(performers.trim()) &&
+          this.joinNames(event.speakers)
+            .toLowerCase()
+            .trim()
+            .includes(speakers.trim())
         )
       })
     },
@@ -40,6 +45,9 @@ export default {
     },
     setFilterPerformers(val) {
       this.$store.commit('events/setFilterPerformers', val)
+    },
+    setFilterSpeakers(val) {
+      this.$store.commit('events/setFilterSpeakers', val)
     },
     setFilterYears(val) {
       this.$store.commit('events/setFilterYears', val)

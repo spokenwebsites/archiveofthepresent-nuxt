@@ -1,7 +1,7 @@
-import events from '@/mixins/events.js'
+import media from '@/mixins/media.js'
 
 export default {
-  mixins: [events],
+  mixins: [media],
   computed: {
     showEventModal() {
       return this.$store.state.events.eventModal.show
@@ -62,8 +62,8 @@ export default {
       this.setMediaModalData(image)
       this.setMediaModalType(type)
       this.setMediaModalImage({
-        lg: this.getImage(data, image, '800'),
-        sm: this.getImage(data, image, '10')
+        lg: this.getImage(image, '800'),
+        sm: this.getImage(image, '10')
       })
       this.setMediaModalPdf(image.pdf ? this.getPdf(data, image) : null)
 

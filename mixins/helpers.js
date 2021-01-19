@@ -13,7 +13,25 @@ export default {
       }
       return parts.join(', ')
     },
-
+    displayName(name) {
+      const firstName = name.split(',')[1]
+      const lastName = name.split(',')[0]
+      return name.includes(',') ? `${firstName} ${lastName}` : name
+    },
+    joinNames(array, value) {
+      const sorted = [...array].sort()
+      const parts = []
+      if (value) {
+        for (const part of sorted) {
+          parts.push(this.displayName(part[value].trim()))
+        }
+      } else {
+        for (const part of sorted) {
+          parts.push(this.displayName(part.trim()))
+        }
+      }
+      return parts.join(', ')
+    },
     debounce(fn, delay = 300) {
       return ((...args) => {
         let timeout
@@ -24,17 +42,5 @@ export default {
         }, delay)
       })()
     }
-
-    // debounce (fn, delay) {
-    //   var timeoutID = null
-    //   return function () {
-    //     clearTimeout(timeoutID)
-    //     var args = arguments
-    //     var that = this
-    //     timeoutID = setTimeout(function () {
-    //       fn.apply(that, args)
-    //     }, delay)
-    //   }
-    // }
   }
 }

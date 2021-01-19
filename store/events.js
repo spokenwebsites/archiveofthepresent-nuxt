@@ -1,10 +1,12 @@
 export const state = () => ({
   events: null,
   currentEvent: null,
+  filterType: '',
   filters: {
     keywords: '',
     presenters: '',
     performers: '',
+    speakers: '',
     years: ''
   },
   eventModal: {
@@ -29,15 +31,23 @@ export const mutations = {
   },
   resetFilters(state, val) {
     if (val === 'performers') {
+      state.filters.speakers = ''
       state.filters.presenters = ''
       state.filters.years = ''
+    } else if (val === 'speakers') {
+      state.filters.performers = ''
+      state.filters.years = ''
+      state.filters.presenters = ''
     } else if (val === 'presenters') {
+      state.filters.speakers = ''
       state.filters.performers = ''
       state.filters.years = ''
     } else if (val === 'years') {
+      state.filters.speakers = ''
       state.filters.performers = ''
       state.filters.presenters = ''
     } else {
+      state.filters.speakers = ''
       state.filters.keywords = ''
       state.filters.performers = ''
       state.filters.presenters = ''
@@ -47,11 +57,20 @@ export const mutations = {
   setFilterKeywords(state, val) {
     state.filters.keywords = val
   },
+  setFilterType(state, val) {
+    state.filterType = val
+  },
+  setFilterValue(state, val) {
+    state.filters[state.filterType] = val
+  },
   setFilterPresenters(state, val) {
     state.filters.presenters = val
   },
   setFilterPerformers(state, val) {
     state.filters.performers = val
+  },
+  setFilterSpeakers(state, val) {
+    state.filters.speakers = val
   },
   setFilterYears(state, val) {
     state.filters.years = val
