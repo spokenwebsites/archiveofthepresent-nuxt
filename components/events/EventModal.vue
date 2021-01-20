@@ -9,16 +9,15 @@
   >
     <b-container class="mb-5">
       <h5 v-if="event.dates.length > 1" class="pb-2">
-        <span
-          v-for="(date, index) in event.dates"
-          :key="'date' + index"
-        >{{ date | moment('MMMM D, YYYY') }}</span>
+        <span v-for="(date, index) in event.dates" :key="'date' + index">{{
+          $dayjs(date).format('MMMM D, YYYY')
+        }}</span>
       </h5>
       <h5 v-else class="pb-2">
-        {{ event.dates[0] | moment('MMMM D, YYYY') }}
+        {{ $dayjs(event.dates[0]).format('MMMM D, YYYY') }}
       </h5>
-      <h2 class="pb-3">{{ event.title }}</h2>
-      <p class="pre-wrap pb-4 font-italic">{{ event.description }}</p>
+      <h2 class="pb-3">{{ eventTitle }}</h2>
+      <p class="pre-wrap pb-4 font-italic">{{ description }}</p>
       <hr class="pb-1" />
       <div class="row">
         <div class="col px-1 px-sm-2">
@@ -29,34 +28,29 @@
             :waveform-filename="featuredAudio.waveform"
             :event="event"
           />
+          <Videoplayer v-if="featuredVideo" :video="featuredVideo" />
         </div>
       </div>
       <div class="row pt-2">
-        <div class="col-4 offset-sm-1 px-1 pb-2">
-          <b-link :to="event.slug + '?image=poster'">
+        <div v-if="hasPoster" class="col-4 offset-sm-1 px-1 pb-2">
+          <b-link :to="slug + '?image=poster'">
             <b-img-lazy
-              v-if="featuredImage"
               class="w-100"
-              :src="getImage(featuredImage, '800_sq')"
-              :blank-src="
-                getImage(featuredImage, '10_sq')
-              "
+              :src="getImage(poster, '800_sq')"
+              :blank-src="getImage(poster, '10_sq')"
               fluid
               fluid-grow
             ></b-img-lazy>
           </b-link>
         </div>
-        <div class="col-sm-6">
-          <div v-if="event.media.images" class="row">
+        <div v-if="hasPhoto" class="col-sm-6">
+          <div class="row">
             <div
-              v-for="(image, index) in event.media.images"
+              v-for="(image, index) in photos"
               :key="'image' + index"
               class="col-4 px-1 pb-2"
             >
-              <b-link
-                v-if="index < 6"
-                :to="event.slug + '?image=' + index"
-              >
+              <b-link v-if="index < 6" :to="slug + '?image=' + index">
                 <b-img-lazy
                   class="w-100"
                   :src="getImage(image, '800_sq')"
@@ -70,7 +64,7 @@
         </div>
       </div>
       <div class="text-center mt-5">
-        <b-link class="btn btn-red" :to="event.slug" role="button">More info</b-link>
+        <b-link class="btn btn-red" :to="slug" role="button">More info</b-link>
       </div>
     </b-container>
   </b-modal>
@@ -79,11 +73,13 @@
 import media from '@/mixins/media.js'
 import event from '@/mixins/event.js'
 import modals from '@/mixins/modals.js'
-import Audioplayer from '@/components/Audioplayer'
+import Audioplayer from '@/components/shared/Audioplayer'
+import Videoplayer from '@/components/shared/Videoplayer'
 
 export default {
   components: {
-    Audioplayer
+    Audioplayer,
+    Videoplayer
   },
   mixins: [media, event, modals],
   computed: {

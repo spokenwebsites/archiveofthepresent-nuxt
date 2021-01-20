@@ -1,16 +1,27 @@
 <template>
   <div id="app">
+    <Navbar />
     <Nuxt />
+    <Footer />
   </div>
 </template>
 
-<style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 350ms;
+<script>
+import Navbar from '@/components/global/Navbar.vue'
+import Footer from '@/components/global/Footer.vue'
+
+export default {
+  components: {
+    Navbar,
+    Footer
+  }
 }
-.fade-enter,
-.fade-leave-to {
+</script>
+<style lang="scss">
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-to {
   opacity: 0;
 }
 </style>

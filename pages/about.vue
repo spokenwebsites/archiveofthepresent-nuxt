@@ -1,6 +1,6 @@
 <template>
   <div id="about">
-    <Header :title="title" />
+    <Header />
     <main>
       <b-container class="page-content mb-5">
         <div class="row">
@@ -13,7 +13,6 @@
         </div>
       </b-container>
     </main>
-    <Footer />
   </div>
 </template>
 
@@ -21,8 +20,6 @@
 import helpers from '@/mixins/helpers.js'
 
 export default {
-  name: 'About',
-
   mixins: [helpers],
   data() {
     return {

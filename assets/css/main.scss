@@ -18,18 +18,22 @@ body, html {
   color: $black;
   background: $white;
 }
-#home {
-  header {
-    background-color: $orange;
-    color: $black;
 
-    a {
+header.home {
+  background-color: $orange;
+  color: $black;
+
+  a {
+    color: $black;
+    &:hover {
       color: $black;
-      &:hover {
-        color: $black;
-      }
     }
   }
+}
+
+.navbar {
+  background-color: $orange;
+  border-bottom: 1px solid $border-dark-gray;
 }
 
 header {
@@ -41,10 +45,6 @@ header {
       color: $red-faded;
       text-decoration: none;
     }
-  }
-  .navbar {
-    background-color: $orange;
-    border-bottom: 1px solid $border-dark-gray;
   }
   .row {
     min-height: calc(100vh - #{$headerHeight});

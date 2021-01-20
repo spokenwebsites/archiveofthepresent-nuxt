@@ -24,6 +24,11 @@
       :data="master.performers"
     />
     <FilterSelect
+      label="Series Organizers"
+      type="seriesOrganizers"
+      :data="master.seriesOrganizers"
+    />
+    <FilterSelect
       label="Speakers"
       type="speakers"
       :data="master.speakers"
@@ -43,7 +48,7 @@
 <script>
 import helpers from '@/mixins/helpers.js'
 import filters from '@/mixins/filters.js'
-import FilterSelect from '@/components/FilterSelect.vue'
+import FilterSelect from './FilterSelect.vue'
 
 export default {
   components: { FilterSelect },
@@ -57,6 +62,9 @@ export default {
       type: Object,
       default: null
     }
+  },
+  mounted() {
+    console.log(this.master)
   }
 }
 </script>

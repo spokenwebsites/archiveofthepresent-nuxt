@@ -38,7 +38,6 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    '~/plugins/vue-moment.js'
   ],
   /*
   ** Auto import components
@@ -58,17 +57,21 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dayjs'
   ],
+  dayjs: {
+    plugins: ['duration']
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
 
-  pageTransition: {
-    name: 'fade',
-    mode: 'out-in'
-  },
+  // pageTransition: {
+  //   name: 'fade',
+  //   mode: 'out-in'
+  // },
 
   build: {
     extractCSS: true,

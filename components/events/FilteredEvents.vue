@@ -5,7 +5,7 @@
         v-for="event in filteredEvents"
         :key="event.id"
         :event="event"
-        class="col-md-6 col-lg-4 pb-4 px-md-2 px-4"
+        class="col-md-6 col-lg-4 pb-4 px-md-2 px-1"
       />
     </div>
     <div v-else class="row">

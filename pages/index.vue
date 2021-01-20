@@ -1,16 +1,15 @@
 <template>
   <div id="home">
-    <Header :title="title" />
+    <Header />
     <main>
       <b-container>
         <div v-if="events" class="row mt-5">
-          <Filters :master="master" :events="events" class="col-lg-3 col-md-4 mb-5 mx-md-0 mx-4" />
+          <Filters :master="master" :events="events" class="col-lg-3 col-md-4 mb-5 mx-md-0 mx-4 d-none d-md-block" />
           <FilteredEvents :events="events" class="col" />
         </div>
       </b-container>
     </main>
     <EventModal v-if="showEventModal" />
-    <Footer />
   </div>
 </template>
 
@@ -21,14 +20,16 @@ import helpers from '@/mixins/helpers.js'
 import media from '@/mixins/media.js'
 import modals from '@/mixins/modals.js'
 import filters from '@/mixins/filters.js'
-import Filters from '@/components/Filters'
-import FilteredEvents from '@/components/FilteredEvents'
+import Filters from '@/components/events/Filters'
+import FilteredEvents from '@/components/events/FilteredEvents'
+import EventModal from '@/components/events/EventModal'
 
 export default {
   name: 'Home',
   components: {
     Filters,
-    FilteredEvents
+    FilteredEvents,
+    EventModal
   },
   mixins: [helpers, media, filters, modals],
   async asyncData({ params }) {
@@ -45,11 +46,7 @@ export default {
   },
   head() {
     return {
-      title: this.title,
-      meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        // { hid: 'description', name: 'description', content: 'My custom description' }
-      ]
+      title: this.title
     }
   },
   mounted() {

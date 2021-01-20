@@ -1,57 +1,127 @@
 <template>
   <div id="event">
-    <Header :title="event.title" />
+    <Header />
     <main>
       <b-container class="page-content mb-5">
         <div class="row">
           <div class="col-sm-10 offset-sm-1">
             <h5 v-if="event.dates.length > 1" class="pb-2 pt-4">
-              <span v-for="(date, index) in event.dates" :key="'date'+index">{{ date | moment("MMMM D, YYYY") }}</span>
+              <span
+                v-for="(date, index) in event.dates"
+                :key="'date' + index"
+              >{{ $dayjs(date).format('MMMM D, YYYY') }}</span>
             </h5>
-            <h5 v-else class="pb-2 pt-4">{{ event.dates[0] | moment("MMMM D, YYYY") }}</h5>
+            <h5 v-else class="pb-2 pt-4">
+              {{ $dayjs(event.dates[0]).format('MMMM D, YYYY') }}
+            </h5>
             <h1 class="pb-4">{{ event.title }}</h1>
+            <div v-if="featuredVideo">
+              <h6 class="pt-3">video</h6>
+              <Videoplayer :video="featuredVideo" />
+            </div>
             <div v-if="featuredAudio">
               <h6 class="pt-3">Audio</h6>
-              <Audioplayer ref="audioplayer" class="size-lg" :audiofile="'/aud/'+featuredAudio.stream" :waveform-filename="featuredAudio.waveform" :event="event" :audio-height="54" />
+              <Audioplayer
+                ref="audioplayer"
+                class="size-lg"
+                :audiofile="'/aud/' + featuredAudio.stream"
+                :waveform-filename="featuredAudio.waveform"
+                :event="event"
+                :audio-height="54"
+              />
             </div>
             <h6 class="py-3">Details</h6>
-            <p class="mb-4">
+            <p v-if="creators" class="mb-4">
               <strong>Presenters</strong>
-              <br />{{ joinNames(event.creators) }}
+              <br />{{ creatorsGroup }}
             </p>
-            <p class="mb-4">
+            <p v-if="performers" class="mb-4">
               <strong>Performers</strong>
-              <br />{{ joinNames(event.performers) }}
+              <br />{{ performersGroup }}
             </p>
-            <p class="mb-4">
+            <p v-if="speakers" class="mb-4">
               <strong>Speakers</strong>
-              <br />{{ joinNames(event.speakers) }}
+              <br />{{ speakersGroup }}
             </p>
-            <p class="mb-4">
+
+            <p v-if="venue" class="mb-4">
               <strong>Venue</strong>
-              <br />{{ event.venue }}
+              <br />{{ venue }}
             </p>
-            <p class="mb-4">
+            <p v-if="locationDetails" class="mb-4">
               <strong>Location</strong>
-              <br />{{ event.location.details.city }}, {{ event.location.details.state }}
+              <br />{{ city || town }}, {{ state }}
             </p>
-            <p class="mb-4 pb-4 measure-wide">
+            <p v-if="description" class="mb-4 pb-4 measure-wide">
               <strong>Description</strong>
-              <br />{{ event.description }}
+              <br />{{ description }}
             </p>
-            <hr />
-            <div v-if="featuredImage" class="pt-4">
-              <h6 class="py-4">Event Poster</h6>
-              <b-link id="modalLinkposter" @click.prevent="openMediaModal(event, featuredImage, 'poster')">
-                <b-img-lazy :src="getImage(featuredImage, '800_sq')" :blank-src="getImage(featuredImage, '10_sq')" rounded="circle" width="200" />
-              </b-link>
-              <div class="py-5">
-                <h6 class="pt-4">Additional Materials</h6>
-                <div v-if="event.media.images" class="row pt-4 px-2">
-                  <div v-for="(image, index) in event.media.images" :key="'image'+index" class="col-2 px-1 pb-2">
-                    <b-link :id="'modalLink'+index" @click.prevent="openMediaModal(event, image, 'image')">
-                      <b-img-lazy class="w-100" :src="getImage(image, '800_sq')" :blank-src="getImage(image, '10_sq')" />
+            <div v-if="hasPoster || additionalMaterials">
+              <hr />
+              <div v-if="hasPoster" class="pt-4">
+                <h6 class="py-4">Event Poster</h6>
+                <div class="row">
+                  <div
+                    v-for="(poster, index) in posters"
+                    :key="'image' + index"
+                    class="col-3"
+                  >
+                    <b-link
+                      id="modalLinkposter"
+                      @click.prevent="openMediaModal(event, poster, 'poster')"
+                    >
+                      <b-img-lazy
+                        class="w-100"
+                        :src="getImage(poster, '800_sq')"
+                        :blank-src="getImage(poster, '10_sq')"
+                        rounded="circle"
+                      />
                     </b-link>
+                  </div>
+                </div>
+              </div>
+              <div v-if="additionalMaterials">
+                <div v-if="hasImage" class="py-5">
+                  <h6 class="pt-4">Additional Materials</h6>
+
+                  <div v-if="hasPhoto" class="row pt-4 px-2">
+                    <p class="col-12 mb4 px-1"><strong>Photos</strong></p>
+                    <div
+                      v-for="(image, index) in photos"
+                      :key="'image' + index"
+                      class="col-2 px-1 pb-2"
+                    >
+                      <b-link
+                        :id="'modalLink' + index"
+                        @click.prevent="openMediaModal(event, image, 'image')"
+                      >
+                        <b-img-lazy
+                          class="w-100"
+                          :src="getImage(image, '800_sq')"
+                          :blank-src="getImage(image, '10_sq')"
+                        />
+                      </b-link>
+                    </div>
+                  </div>
+
+                  <div v-if="hasDocument" class="row pt-4 px-2">
+                    <p class="col-12 mb4 px-1"><strong>Documents</strong></p>
+                    <div
+                      v-for="(image, index) in documents"
+                      :key="'image' + index"
+                      class="col-2 px-1 pb-2"
+                    >
+                      <b-link
+                        :id="'modalLink' + (index + photos.length)"
+                        @click.prevent="openMediaModal(event, image, 'image')"
+                      >
+                        <b-img-lazy
+                          class="w-100"
+                          :src="getImage(image, '800_sq')"
+                          :blank-src="getImage(image, '10_sq')"
+                        />
+                      </b-link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -61,7 +131,6 @@
       </b-container>
     </main>
     <MediaModal v-if="showMediaModal" />
-    <Footer />
   </div>
 </template>
 
@@ -72,13 +141,15 @@ import helpers from '@/mixins/helpers.js'
 import media from '@/mixins/media.js'
 import event from '@/mixins/event.js'
 import modals from '@/mixins/modals.js'
-import Audioplayer from '@/components/Audioplayer'
-import MediaModal from '@/components/MediaModal'
+import Audioplayer from '@/components/shared/Audioplayer'
+import Videoplayer from '@/components/shared/Videoplayer'
+import MediaModal from '@/components/event/MediaModal'
 
 export default {
   name: 'Event',
   components: {
     Audioplayer,
+    Videoplayer,
     MediaModal
   },
   mixins: [helpers, media, event, modals],
@@ -92,14 +163,9 @@ export default {
   },
   head() {
     return {
-      title: this.event.title,
-      meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        // { hid: 'description', name: 'description', content: 'My custom description' }
-      ]
+      title: this.eventTitle
     }
   },
-
   computed: {},
   mounted() {
     if (this.$route.query.image) {

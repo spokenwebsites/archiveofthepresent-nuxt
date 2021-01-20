@@ -101,78 +101,61 @@ export default {
 
       wavesurfer.on('finish', () => {
         wavesurfer.seekTo(0)
-        this.currentTime = this.$moment
+        this.currentTime = this.$dayjs
           .duration(wavesurfer.getCurrentTime(), 'seconds')
-          .format('mm:ss', { trim: 'false' })
+          .format('mm:ss')
       })
 
       wavesurfer.on('ready', () => {
         this.duration = parseInt(this.wavesurfer.getDuration())
         if (this.duration / 60 < 60) {
-          this.currentTime = this.$moment
+          this.currentTime = this.$dayjs
             .duration(wavesurfer.getCurrentTime(), 'seconds')
-            .format('mm:ss', { trim: 'false' })
-          this.duration = this.$moment
+            .format('mm:ss')
+          this.duration = this.$dayjs
             .duration(wavesurfer.getDuration(), 'seconds')
-            .format('mm:ss', { trim: 'false' })
+            .format('mm:ss')
         } else {
-          this.currentTime = this.$moment
+          this.currentTime = this.$dayjs
             .duration(wavesurfer.getCurrentTime(), 'seconds')
-            .format('hh:mm:ss', { trim: 'false' })
-          this.duration = this.$moment
+            .format('HH:mm:ss')
+          this.duration = this.$dayjs
             .duration(wavesurfer.getDuration(), 'seconds')
-            .format('hh:mm:ss', { trim: 'false' })
+            .format('HH:mm:ss')
         }
       })
-
       wavesurfer.on('audioprocess', () => {
         this.duration = parseInt(wavesurfer.getDuration())
-
         if (this.duration / 60 < 60) {
-          this.currentTime = this.$moment
+          this.currentTime = this.$dayjs
             .duration(wavesurfer.getCurrentTime(), 'seconds')
-            .format('mm:ss', { trim: 'false' })
-          this.duration = this.$moment
+            .format('mm:ss')
+          this.duration = this.$dayjs
             .duration(wavesurfer.getDuration(), 'seconds')
-            .format('mm:ss', { trim: 'false' })
+            .format('mm:ss')
         } else {
-          this.currentTime = this.$moment
+          this.currentTime = this.$dayjs
             .duration(wavesurfer.getCurrentTime(), 'seconds')
-            .format('hh:mm:ss', { trim: 'false' })
-          this.duration = this.$moment
+            .format('HH:mm:ss')
+          this.duration = this.$dayjs
             .duration(wavesurfer.getDuration(), 'seconds')
-            .format('hh:mm:ss', { trim: 'false' })
+            .format('HH:mm:ss')
         }
       })
     },
-
     loadWaveform() {
-      const waveform = require('../static/waveforms/' + this.waveformFilename)
-      // console.log(waveform)
-      // const peaksArray = this.waveformdata
+      const waveform = require('../../static/waveforms/' + this.waveformFilename)
       const peaksArray = waveform.data
-
       this.wavesurfer.loadMediaElement(
         this.audiofile,
         peaksArray.map(p => p / 128),
         true,
         this.wavesurfer.getDuration()
       )
-
-      // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-      //   wavesurfer.load(this.audiofile, peaksArray.map(p => p / 30000))
-      // } else {
-      //   wavesurfer.load(this.audiofile)
-      //   wavesurfer.backend.peaks = peaksArray.map(p => p / 30000)
-      // }
     },
-
     audioPlayPause() {
       this.wavesurfer.playPause()
-      //    if (this.status === 'playing') this.status = 'paused'
-      //  else this.status = 'playing'
     },
-
     audioDestroy() {
       this.wavesurfer.destroy()
       this.wavesurfer = null

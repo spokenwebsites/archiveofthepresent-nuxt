@@ -4,8 +4,9 @@ export default {
       return this.events.filter(event => {
         const keywords = this.filters.keywords.toLowerCase()
         const presenters = this.filters.presenters.toLowerCase()
-        // const years = this.filters.years.toLowerCase()
+        const years = this.filters.years
         const performers = this.filters.performers.toLowerCase()
+        const seriesOrganizers = this.filters.seriesOrganizers.toLowerCase()
         const speakers = this.filters.speakers.toLowerCase()
         return (
           (event.title.toLowerCase().includes(keywords) ||
@@ -28,7 +29,14 @@ export default {
           this.joinNames(event.speakers)
             .toLowerCase()
             .trim()
-            .includes(speakers.trim())
+            .includes(speakers.trim()) &&
+          this.joinNames(event.seriesOrganizers)
+            .toLowerCase()
+            .trim()
+            .includes(seriesOrganizers.trim()) &&
+          event.year
+            .trim()
+            .includes(years.trim())
         )
       })
     },
@@ -45,6 +53,9 @@ export default {
     },
     setFilterPerformers(val) {
       this.$store.commit('events/setFilterPerformers', val)
+    },
+    setFilterseriesOrganizers(val) {
+      this.$store.commit('events/setFilterseriesOrganizers', val)
     },
     setFilterSpeakers(val) {
       this.$store.commit('events/setFilterSpeakers', val)

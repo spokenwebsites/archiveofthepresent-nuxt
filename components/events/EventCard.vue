@@ -9,7 +9,7 @@
         height="auto"
         fluid-grow
         fluid
-        :alt="event.name"
+        :alt="eventTitle"
         top
       />
       <b-card-img-lazy
@@ -19,7 +19,7 @@
         height="auto"
         fluid-grow
         fluid
-        :alt="event.name"
+        :alt="eventTitle"
         top
       />
       <b-card-body>
@@ -28,25 +28,26 @@
             <h6>
               <b-link
                 class="stretched-link d-none d-sm-inline"
-                :href="event.slug"
+                :href="slug"
                 @click.prevent="openEventModal(event)"
-              >{{ event.title }}</b-link>
+              >{{ eventTitle }}</b-link>
               <b-link
                 class="stretched-link d-inline d-sm-none"
-                :to="event.slug"
-              >{{ event.title }}</b-link>
+                :to="slug"
+              >{{ eventTitle }}</b-link>
             </h6>
             <b-card-text class="mt-4">
-              <em v-if="creators">{{ joinNames(creators) }}, </em>
-              <em v-if="contributors">{{ joinNames(contributors) }}</em>
+              <em v-if="creators">{{ creatorsGroup }}, </em>
+              <em v-if="contributors">{{ contributorsGroup }}</em>
             </b-card-text>
           </div>
           <div class="d-flex w-100 justify-content-between mt-4">
             <div class="text-left">
-              {{ event.year }}
+              {{ year }}
             </div>
             <div class="text-right">
-              {{ event.location.details.city }}
+              <span v-if="city">{{ city }}</span>
+              <span v-else-if="town">{{ town }}, {{ state }}</span>
             </div>
           </div>
         </div>
@@ -67,26 +68,6 @@ export default {
     event: {
       type: Object,
       default: null
-    }
-  },
-  computed: {
-    contributors() {
-      return this.event.contributors.length ? this.event.contributors : null
-    },
-    creators() {
-      return this.event.creators.length ? this.event.creators : null
-    },
-    presenters() {
-      return this.event.presenters.length ? this.event.presenters : null
-    },
-    seriesOrganizers() {
-      return this.event.seriesOrganizers.length ? this.event.seriesOrganizers : null
-    },
-    speakers() {
-      return this.event.speakers.length ? this.event.speakers : null
-    },
-    performers() {
-      return this.event.performers.length ? this.event.performers : null
     }
   }
 }

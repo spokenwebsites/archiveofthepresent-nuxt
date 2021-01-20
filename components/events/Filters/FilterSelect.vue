@@ -23,7 +23,7 @@
 <script>
 import helpers from '@/mixins/helpers.js'
 import filters from '@/mixins/filters.js'
-import FilterOption from '@/components/FilterOption.vue'
+import FilterOption from './FilterOption.vue'
 
 export default {
   components: { FilterOption },
