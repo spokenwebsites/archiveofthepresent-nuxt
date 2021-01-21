@@ -1,19 +1,22 @@
 export default {
   computed: {
+    filters() {
+      return this.$store.state.events.filters
+    },
     filteredEvents() {
       return this.events.filter(event => {
         const keywords = this.filters.keywords.toLowerCase()
         const presenters = this.filters.presenters.toLowerCase()
         const years = this.filters.years
         const performers = this.filters.performers.toLowerCase()
-        const seriesOrganizers = this.filters.seriesOrganizers.toLowerCase()
-        const speakers = this.filters.speakers.toLowerCase()
+        const city = event.location.details.city ? event.location.details.city : event.location.details.town
+        // const speakers = this.filters.speakers.toLowerCase()
         return (
           (event.title.toLowerCase().includes(keywords) ||
             this.joinNames(event.creators).toLowerCase().includes(keywords) ||
             this.joinNames(event.contributors).toLowerCase().includes(keywords) ||
             event.year.toLowerCase().includes(keywords) ||
-            event.location.details.city
+            city
               .toLowerCase()
               .normalize('NFD')
               .replace(/[\u0300-\u036F]/g, '')
@@ -26,22 +29,19 @@ export default {
             .toLowerCase()
             .trim()
             .includes(performers.trim()) &&
-          this.joinNames(event.speakers)
+          // this.joinNames(event.speakers)
+          //   .toLowerCase()
+          //   .trim()
+          //   .includes(speakers.trim()) &&
+          this.joinNames(event.presenters)
             .toLowerCase()
             .trim()
-            .includes(speakers.trim()) &&
-          this.joinNames(event.seriesOrganizers)
-            .toLowerCase()
-            .trim()
-            .includes(seriesOrganizers.trim()) &&
+            .includes(presenters.trim()) &&
           event.year
             .trim()
             .includes(years.trim())
         )
       })
-    },
-    filters() {
-      return this.$store.state.events.filters
     }
   },
   methods: {

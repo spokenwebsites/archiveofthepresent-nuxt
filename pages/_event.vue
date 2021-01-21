@@ -5,11 +5,11 @@
       <b-container class="page-content mb-5">
         <div class="row">
           <div class="col-sm-10 offset-sm-1">
-            <EventHeader :event="event" />
-            <EventVideo :event="event" />
-            <EventAudio :event="event" />
-            <EventDetails :event="event" />
-            <EventImages :event="event" />
+            <EventHeader />
+            <EventVideo />
+            <EventAudio />
+            <EventDetails />
+            <EventImages />
           </div>
         </div>
       </b-container>
@@ -34,13 +34,13 @@ export default {
     EventDetails
   },
   mixins: [helpers, media, event, modals],
-  async asyncData({ params }) {
+  async asyncData({ params, store }) {
     const path = config.dev
       ? process.env.DEV_EVENTS_PATH_FILE + params.event
       : process.env.PROD_EVENTS_PATH_FILE + params.event
-    console.log(path)
     const { data } = await axios.get(path)
-    return { event: data.event }
+    store.commit('event/setEvent', data.event)
+    // return { event: data.event }
   },
   head() {
     return {
@@ -48,9 +48,9 @@ export default {
     }
   },
   computed: {
-    // event() {
-    //   return this.$store.state.event.event
-    // }
+    event() {
+      return this.$store.state.event.event
+    }
   },
   mounted() {
     if (this.$route.query.image) {

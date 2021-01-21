@@ -9,13 +9,10 @@ import DetailsBin from '@/components/shared/DetailsBin'
 export default {
   components: { DetailsBin },
   mixins: [event],
-  props: {
-    event: {
-      type: Object,
-      default: null
-    }
-  },
   computed: {
+    event() {
+      return this.$store.state.event.event
+    },
     eventDetails() {
       return [
         {

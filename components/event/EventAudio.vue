@@ -19,10 +19,9 @@ import Audioplayer from '@/components/shared/Audioplayer'
 export default {
   components: { Audioplayer },
   mixins: [event],
-  props: {
-    event: {
-      type: Object,
-      default: null
+  computed: {
+    event() {
+      return this.$store.state.event.event
     }
   }
 }

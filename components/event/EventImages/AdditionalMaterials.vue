@@ -53,10 +53,9 @@ import modals from '@/mixins/modals.js'
 
 export default {
   mixins: [event, media, modals],
-  props: {
-    event: {
-      type: Object,
-      default: null
+  computed: {
+    event() {
+      return this.$store.state.event.event
     }
   }
 }

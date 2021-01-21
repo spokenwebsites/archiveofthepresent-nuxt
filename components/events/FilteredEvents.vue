@@ -22,20 +22,10 @@
 
 <script>
 import helpers from '@/mixins/helpers.js'
+import events from '@/mixins/events.js'
 import filters from '@/mixins/filters.js'
 
 export default {
-  mixins: [helpers, filters],
-  props: {
-    events: {
-      type: Array,
-      default: null
-    }
-  },
-  computed: {
-    filters() {
-      return this.$store.state.events.filters
-    }
-  }
+  mixins: [helpers, events, filters]
 }
 </script>

@@ -14,10 +14,9 @@ import AdditionalMaterials from './AdditionalMaterials'
 export default {
   components: { Posters, AdditionalMaterials },
   mixins: [event],
-  props: {
-    event: {
-      type: Object,
-      default: null
+  computed: {
+    event() {
+      return this.$store.state.event.event
     }
   }
 }

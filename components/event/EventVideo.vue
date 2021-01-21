@@ -12,10 +12,9 @@ import Videoplayer from '@/components/shared/Videoplayer'
 export default {
   components: { Videoplayer },
   mixins: [event],
-  props: {
-    event: {
-      type: Object,
-      default: null
+  computed: {
+    event() {
+      return this.$store.state.event.event
     }
   }
 }

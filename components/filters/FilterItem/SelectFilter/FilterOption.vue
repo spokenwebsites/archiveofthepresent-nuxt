@@ -14,14 +14,14 @@ export default {
       type: String,
       default: null
     },
-    type: {
+    format: {
       type: String,
       default: null
     }
   },
   computed: {
     optionFormatted() {
-      return this.type === 'name' ? this.displayName(this.option) : this.option
+      return this.format === 'name' ? this.displayName(this.option) : this.option
     }
   }
 }

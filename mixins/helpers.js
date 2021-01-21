@@ -14,8 +14,8 @@ export default {
       return parts.join(', ')
     },
     displayName(name) {
-      const firstName = name.split(',')[1]
-      const lastName = name.split(',')[0]
+      const firstName = name.split(',')[1].trim()
+      const lastName = name.split(',')[0].trim()
       return name.includes(',') ? `${firstName} ${lastName}` : name
     },
     joinNames(array, value) {

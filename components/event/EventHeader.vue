@@ -17,10 +17,9 @@ import event from '@/mixins/event.js'
 
 export default {
   mixins: [event],
-  props: {
-    event: {
-      type: Object,
-      default: null
+  computed: {
+    event() {
+      return this.$store.state.event.event
     }
   }
 }

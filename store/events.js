@@ -1,5 +1,6 @@
 export const state = () => ({
   events: null,
+  master: null,
   currentEvent: null,
   filterType: '',
   filters: {
@@ -27,6 +28,12 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setEvents(state, val) {
+    state.events = val
+  },
+  setMaster(state, val) {
+    state.master = val
+  },
   setCurrentEvent(state, val) {
     state.currentEvent = val
   },
