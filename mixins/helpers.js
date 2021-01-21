@@ -19,18 +19,22 @@ export default {
       return name.includes(',') ? `${firstName} ${lastName}` : name
     },
     joinNames(array, value) {
-      const sorted = [...array].sort()
-      const parts = []
-      if (value) {
-        for (const part of sorted) {
-          parts.push(this.displayName(part[value].trim()))
+      if (array) {
+        const sorted = [...array].sort()
+        const parts = []
+        if (value) {
+          for (const part of sorted) {
+            parts.push(this.displayName(part[value].trim()))
+          }
+        } else {
+          for (const part of sorted) {
+            parts.push(this.displayName(part.trim()))
+          }
         }
+        return parts.join(', ')
       } else {
-        for (const part of sorted) {
-          parts.push(this.displayName(part.trim()))
-        }
+        return array
       }
-      return parts.join(', ')
     },
     debounce(fn, delay = 300) {
       return ((...args) => {

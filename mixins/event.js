@@ -41,7 +41,7 @@ export default {
       return this.images.length || this.featuredImage
     },
     additionalMaterials() {
-      return this.hasPoster ? this.images.length > 1 : this.hasImages
+      return this.hasPoster ? this.images.length > 1 : this.hasImage
     },
     audio() {
       return this.event.media.audio
@@ -88,7 +88,7 @@ export default {
       return this.joinNames(this.presenters)
     },
     performers() {
-      return this.event.performers.lenth ? this.event.performers : null
+      return this.event.performers.length ? this.event.performers : null
     },
     performersGroup() {
       return this.joinNames(this.performers)

@@ -25,7 +25,6 @@ import FilteredEvents from '@/components/events/FilteredEvents'
 import EventModal from '@/components/events/EventModal'
 
 export default {
-  name: 'Home',
   components: {
     Filters,
     FilteredEvents,
@@ -48,9 +47,6 @@ export default {
     return {
       title: this.title
     }
-  },
-  mounted() {
-    console.log(this.events)
   }
 }
 </script>

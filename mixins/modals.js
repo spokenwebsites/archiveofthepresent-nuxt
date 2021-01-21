@@ -46,13 +46,13 @@ export default {
     },
     openEventModal(data) {
       this.setEventModal(true)
-      this.updateCurrentEvent(data)
+      this.setCurrentEvent(data)
       this.$nextTick(() => {
         this.$bvModal.show('modal')
       })
     },
-    updateCurrentEvent(val) {
-      this.$store.commit('events/updateCurrentEvent', val)
+    setCurrentEvent(val) {
+      this.$store.commit('events/setCurrentEvent', val)
     },
     hideEventModal() {
       this.setEventModal(false)

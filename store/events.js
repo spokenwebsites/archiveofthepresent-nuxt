@@ -27,7 +27,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  updateCurrentEvent(state, val) {
+  setCurrentEvent(state, val) {
     state.currentEvent = val
   },
   resetFilters(state, val) {

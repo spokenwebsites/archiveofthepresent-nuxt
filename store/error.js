@@ -5,7 +5,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  update (state, val) {
+  update(state, val) {
     state.text = val
   }
 }
