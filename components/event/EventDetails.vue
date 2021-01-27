@@ -16,10 +16,6 @@ export default {
     eventDetails() {
       return [
         {
-          title: 'Series Organizer',
-          detail: this.seriesOrganizersGroup
-        },
-        {
           title: 'Presenters',
           detail: this.presentersGroup
         },
@@ -30,6 +26,10 @@ export default {
         {
           title: 'Speakers',
           detail: this.speakersGroup
+        },
+        {
+          title: 'Series Organizer',
+          detail: this.seriesOrganizersGroup
         },
         {
           title: 'Venue',
