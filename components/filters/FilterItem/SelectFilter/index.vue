@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showFilter">
     <label class="mr-sm-2" :for="name">{{ label }}</label>
     <b-form-select
       :id="name"
@@ -43,6 +43,9 @@ export default {
     }
   },
   computed: {
+    showFilter() {
+      return !!this.data.length
+    },
     optionType() {
       return this.name !== 'years' ? 'name' : 'date'
     }
