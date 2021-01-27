@@ -36,12 +36,12 @@ export default {
           type: 'select',
           data: this.master.performers
         },
-        // {
-        //   label: 'Speakers',
-        //   name: 'speakers',
-        //   type: 'select',
-        //   data: this.master.speakers
-        // },
+        {
+          label: 'Speakers',
+          name: 'speakers',
+          type: 'select',
+          data: this.master.speakers
+        },
         {
           label: 'Year',
           name: 'years',
