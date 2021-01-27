@@ -37,8 +37,7 @@
               >{{ eventTitle }}</b-link>
             </h6>
             <b-card-text class="mt-4">
-              <em v-if="creators">{{ creatorsGroup }}, </em>
-              <em v-if="contributors">{{ contributorsGroup }}</em>
+              <em v-if="mainGroup">{{ mainGroup }}</em>
             </b-card-text>
           </div>
           <div class="d-flex w-100 justify-content-between mt-4">

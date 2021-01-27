@@ -81,6 +81,19 @@ export default {
     contributorsGroup() {
       return this.joinNames(this.contributors)
     },
+    mainGroup() {
+      const main = []
+      if (this.presentersGroup) {
+        main.push(this.presenters)
+      }
+      if (this.performersGroup) {
+        main.push(this.performersGroup)
+      }
+      if (this.speakersGroup) {
+        main.push(this.speakersGroup)
+      }
+      return main.join(', ')
+    },
     presenters() {
       return this.event.presenters.length ? this.event.presenters : null
     },
