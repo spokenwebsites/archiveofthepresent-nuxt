@@ -20,7 +20,7 @@ export default {
   mixins: [helpers, event],
   props: {
     details: {
-      type: Object,
+      type: Array,
       default: null
     }
   }

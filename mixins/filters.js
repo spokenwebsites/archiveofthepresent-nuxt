@@ -9,37 +9,48 @@ export default {
         const presenters = this.filters.presenters.toLowerCase()
         const years = this.filters.years
         const performers = this.filters.performers.toLowerCase()
-        const city = event.location.details.city ? event.location.details.city : event.location.details.town
-        // const speakers = this.filters.speakers.toLowerCase()
+        const city = event.location.details.city
+          ? event.location.details.city
+          : event.location.details.town
+        const speakers = this.filters.speakers.toLowerCase()
         return (
-          (event.title.toLowerCase().includes(keywords) ||
-            this.joinNames(event.creators).toLowerCase().includes(keywords) ||
-            this.joinNames(event.contributors).toLowerCase().includes(keywords) ||
-            event.year.toLowerCase().includes(keywords) ||
-            city
-              .toLowerCase()
-              .normalize('NFD')
-              .replace(/[\u0300-\u036F]/g, '')
-              .includes(keywords)) &&
+          ((event.title && event.title.toLowerCase().includes(keywords)) ||
+            (event.creators &&
+              this.joinNames(event.creators)
+                .toLowerCase()
+                .includes(keywords)) ||
+            (event.contributors &&
+              this.joinNames(event.contributors)
+                .toLowerCase()
+                .includes(keywords)) ||
+            (event.year && event.year.toLowerCase().includes(keywords)) ||
+            (city &&
+              city
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036F]/g, '')
+                .includes(keywords))) &&
+          event.creators &&
           this.joinNames(event.creators)
             .toLowerCase()
             .trim()
             .includes(presenters.trim()) &&
+          event.performers &&
           this.joinNames(event.performers)
             .toLowerCase()
             .trim()
             .includes(performers.trim()) &&
-          // this.joinNames(event.speakers)
-          //   .toLowerCase()
-          //   .trim()
-          //   .includes(speakers.trim()) &&
+          this.joinNames(event.speakers)
+            .toLowerCase()
+            .trim()
+            .includes(speakers.trim()) &&
+          event.presenters &&
           this.joinNames(event.presenters)
             .toLowerCase()
             .trim()
             .includes(presenters.trim()) &&
-          event.year
-            .trim()
-            .includes(years.trim())
+          event.year &&
+          event.year.trim().includes(years.trim())
         )
       })
     }

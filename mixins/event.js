@@ -4,60 +4,60 @@ export default {
   mixins: [helpers],
   computed: {
     images() {
-      return this.event.media.images
+      return this.event.media ? this.event.media.images : null
     },
     featured() {
-      return this.event.media.featured
+      return this.event.media ? this.event.media.featured : null
     },
     featuredImage() {
-      return this.featured.image && this.featured.image[0]
+      return this.featured && this.featured.image && this.featured.image[0]
         ? this.featured.image[0]
         : this.images && this.images[0]
           ? this.images[0]
           : null
     },
     posters() {
-      return this.event.media.posters
+      return this.event.media ? this.event.media.posters : null
     },
     poster() {
-      return this.event.media.posters[0]
+      return this.posters[0]
     },
     hasPoster() {
-      return this.posters.length
+      return this.posters && this.posters.length
     },
     photos() {
-      return this.event.media.photos
+      return this.event.media ? this.event.media.photos : null
     },
     hasPhoto() {
-      return this.photos.length
+      return this.photos && this.photos.length
     },
     documents() {
-      return this.event.media.documents
+      return this.media ? this.event.media.documents : null
     },
     hasDocument() {
-      return this.documents.length
+      return this.documents && this.documents.length
     },
     hasImage() {
-      return this.images.length || this.featuredImage
+      return (this.images && this.images.length) || this.featuredImage
     },
     additionalMaterials() {
       return this.hasPoster ? this.images.length > 1 : this.hasImage
     },
     audio() {
-      return this.event.media.audio
+      return this.event.media ? this.event.media.audio : null
     },
     featuredAudio() {
-      return this.featured.audio && this.featured.audio[0]
+      return this.featured && this.featured.audio && this.featured.audio[0]
         ? this.featured.audio[0]
         : this.audio && this.audio[0]
           ? this.audio[0]
           : null
     },
     videos() {
-      return this.event.media.videos
+      return this.event.media ? this.event.media.videos : null
     },
     featuredVideo() {
-      return this.featured.video && this.featured.video[0]
+      return this.featured && this.featured.video && this.featured.video[0]
         ? this.featured.video[0]
         : this.videos && this.videos[0]
           ? this.videos[0]
@@ -84,7 +84,7 @@ export default {
     mainGroup() {
       const main = []
       if (this.presentersGroup) {
-        main.push(this.presenters)
+        main.push(this.presentersGroup)
       }
       if (this.performersGroup) {
         main.push(this.performersGroup)
