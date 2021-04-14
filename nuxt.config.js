@@ -92,11 +92,8 @@ export default {
           }
         },
         {
-          test: /\.(yaml)$/i,
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]'
-          }
+          test: /\.ya?ml$/,
+          use: 'js-yaml-loader'
         }
       )
     }

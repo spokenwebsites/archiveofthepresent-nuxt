@@ -4,7 +4,9 @@
     <main>
       <b-container>
         <div v-if="events" class="row mt-5">
-          <EventFilters class="col-lg-3 col-md-4 mb-5 mx-md-0 mx-4 d-none d-md-block" />
+          <EventFilters
+            class="col-lg-3 col-md-4 mb-5 mx-md-0 mx-4 d-none d-md-block"
+          />
           <FilteredEvents class="col" />
         </div>
       </b-container>
@@ -22,6 +24,7 @@ import filters from '@/mixins/filters.js'
 import EventFilters from '@/components/events/EventFilters'
 import FilteredEvents from '@/components/events/FilteredEvents'
 import EventModal from '@/components/events/EventModal'
+import active from '@/static/data/active.yaml'
 
 export default {
   components: {
@@ -30,9 +33,10 @@ export default {
     EventModal
   },
   mixins: [helpers, media, filters, modals],
-  async asyncData({ params, store }) {
+  async asyncData({ store }) {
     const path = `${process.env.SERVER_BASE_URL}/file/aotp.json/`
-    const { data } = await axios.get(path)
+    const params = { active: JSON.stringify(active) }
+    const { data } = await axios.get(path, { params })
     store.commit('events/setEvents', data.events)
     store.commit('events/setMaster', data.master)
   },
