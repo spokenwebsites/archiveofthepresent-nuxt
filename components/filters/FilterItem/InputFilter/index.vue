@@ -1,6 +1,7 @@
 <template>
   <b-form-input
     id="keywords"
+    v-model="keywords"
     class="mb-4"
     onfocus="this.select()"
     type="text"
@@ -34,6 +35,9 @@ export default {
   computed: {
     optionType() {
       return this.type !== 'years' ? 'name' : 'date'
+    },
+    keywords() {
+      return this.$store.state.events.filters ? this.$store.state.events.filters.keywords : ''
     }
   },
   methods: {
