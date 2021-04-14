@@ -24,7 +24,7 @@ import filters from '@/mixins/filters.js'
 import EventFilters from '@/components/events/EventFilters'
 import FilteredEvents from '@/components/events/FilteredEvents'
 import EventModal from '@/components/events/EventModal'
-import active from '@/static/data/active.yaml'
+import active from '@/data/active.yaml'
 
 export default {
   components: {
