@@ -34,7 +34,7 @@ export default {
   },
   mixins: [helpers, media, event, modals],
   async asyncData({ params, store }) {
-    const path = `${process.env.SERVER_BASE_URL}/file/aotp.json/`
+    const path = `${process.env.SERVER_BASE_URL}/file/aotp.json/${params.event}`
     const { data } = await axios.get(path)
     store.commit('event/setEvent', data.event)
     // return { event: data.event }
