@@ -4,4 +4,3 @@ dist
 node_modules
 static/aud
 static/waveforms
-assets/media
