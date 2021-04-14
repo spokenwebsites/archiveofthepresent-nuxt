@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import config from '@/nuxt.config.js'
 import axios from 'axios'
 import helpers from '@/mixins/helpers.js'
 import media from '@/mixins/media.js'
@@ -35,9 +34,7 @@ export default {
   },
   mixins: [helpers, media, event, modals],
   async asyncData({ params, store }) {
-    const path = config.dev
-      ? process.env.DEV_EVENTS_PATH_FILE + params.event
-      : process.env.PROD_EVENTS_PATH_FILE + params.event
+    const path = `${process.env.SERVER_BASE_URL}/file/aotp.json/`
     const { data } = await axios.get(path)
     store.commit('event/setEvent', data.event)
     // return { event: data.event }
