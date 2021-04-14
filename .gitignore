@@ -94,4 +94,3 @@ dist
 .nuxt
 node_modules
 static/aud
-static/waveforms
