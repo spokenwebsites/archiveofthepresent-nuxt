@@ -15,8 +15,9 @@ export default {
         const speakers = this.filters.speakers.toLowerCase()
         return (
           ((event.title && event.title.toLowerCase().includes(keywords)) ||
-            (event.description && event.description.toLowerCase().includes(keywords)) ||
-            (event.creators &&
+          (event.description && event.description.toLowerCase().includes(keywords)) ||
+          (event.venue && event.venue.toLowerCase().includes(keywords)) ||
+          (event.creators &&
               this.joinNames(event.creators)
                 .toLowerCase()
                 .includes(keywords)) ||
