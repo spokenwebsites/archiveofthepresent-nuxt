@@ -2,9 +2,8 @@
 
 ## Update Instructions
 
-1. Edit the list in the [/data/active.yaml](https://github.com/spokenwebsites/archiveofthepresent-nuxt/edit/staging/data/active.yaml) file.
+1. Edit the list in the [/data/active.yaml](https://github.com/spokenwebsites/archiveofthepresent-nuxt/edit/main/data/active.yaml) file.
 2. Commit the changes
-
 
 ## Client Build Setup
 
