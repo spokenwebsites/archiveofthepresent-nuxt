@@ -8,6 +8,14 @@
         allowfullscreen
       ></b-embed>
     </div>
+    <div v-else class="py-3">
+      <!-- <b-embed type="video" aspect="16by9" controls :poster="poster.file_path">
+        <source :src="videoUrl" type="video/mp4">
+      </b-embed> -->
+      <b-embed type="video" aspect="16by9" controls>
+        <source :src="videoUrl" type="video/mp4">
+      </b-embed>
+    </div>
   </div>
 </template>
 
@@ -19,6 +27,10 @@ export default {
   mixins: [helpers, media],
   props: {
     video: {
+      type: Object,
+      default: null
+    },
+    poster: {
       type: Object,
       default: null
     }

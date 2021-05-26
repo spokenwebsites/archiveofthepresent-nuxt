@@ -28,7 +28,7 @@
             :waveform-filename="featuredAudio.waveform"
             :event="event"
           />
-          <Videoplayer v-if="featuredVideo" :video="featuredVideo" />
+          <Videoplayer v-if="featuredVideo" :video="featuredVideo" :poster="featuredImage" />
         </div>
       </div>
       <div class="row pt-2">
