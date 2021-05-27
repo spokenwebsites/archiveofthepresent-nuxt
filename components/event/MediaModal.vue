@@ -15,10 +15,10 @@
         :src="modalImg.lg"
         :blank-src="modalImg.sm"
       />
-      <h5 class="mb-4">
+      <h5 v-if="modalData.title" class="mb-4">
         <strong>{{ modalData.title }}</strong>
       </h5>
-      <p class="mb-1">
+      <p v-if="modalData.caption" class="mb-1">
         <em>{{ modalData.caption }}</em>
       </p>
       <p>

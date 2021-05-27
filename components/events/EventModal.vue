@@ -43,12 +43,13 @@
             ></b-img-lazy>
           </b-link>
         </div>
-        <div v-if="hasPhoto" class="col-sm-6">
+        <div v-if="hasPhoto && photos.length > 1" :class="{ 'col-sm-6': hasPoster, 'col-sm-12': !hasPoster }">
           <div class="row">
             <div
               v-for="(image, index) in photos"
               :key="'image' + index"
-              class="col-4 px-1 pb-2"
+              :class="{ 'col-4': hasPoster, 'col-2': !hasPoster }"
+              class="px-1 pb-2"
             >
               <b-link v-if="index < 6" :to="slug + '?image=' + index">
                 <b-img-lazy
