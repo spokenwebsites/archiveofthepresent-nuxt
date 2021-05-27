@@ -1,8 +1,8 @@
 <template>
-  <p v-if="detail" class="mb-4">
+  <div v-if="detail" class="mb-4">
     <strong>{{ title }}</strong>
-    <br />{{ detail }}
-  </p>
+    <p class="pre-wrap">{{ detail }}</p>
+  </div>
 </template>
 
 <script>
