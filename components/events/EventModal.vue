@@ -17,7 +17,8 @@
         {{ $dayjs(event.dates[0]).format('MMMM D, YYYY') }}
       </h5>
       <h2 class="pb-3">{{ eventTitle }}</h2>
-      <p class="pre-wrap pb-4 font-italic">{{ description }}</p>
+      <!-- eslint-disable-next-line vue/no-v-html-->
+      <p class="pre-wrap pb-4 font-italic" v-html="description"></p>
       <hr class="pb-1" />
       <div class="row">
         <div class="col px-1 px-sm-2">
@@ -94,4 +95,5 @@ export default {
   }
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+</style>

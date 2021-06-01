@@ -1,7 +1,8 @@
 <template>
   <div v-if="detail" class="mb-4">
     <strong>{{ title }}</strong>
-    <p class="pre-wrap">{{ detail }}</p>
+    <!-- eslint-disable-next-line vue/no-v-html-->
+    <p class="pre-wrap" v-html="detail"></p>
   </div>
 </template>
 

@@ -112,6 +112,15 @@ main {
   }
 }
 
+p {
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 footer {
   background: $black;
   color: $white;
@@ -196,6 +205,7 @@ footer {
   p {
     color: $dark-gray;
   }
+
 
   h6, .h6 {
     color: $gray;
