@@ -112,11 +112,13 @@ main {
   }
 }
 
-p {
-  a {
-    text-decoration: underline;
-    &:hover {
-      text-decoration: none;
+.container {
+  p {
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
