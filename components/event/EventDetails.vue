@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import sanitizeHtml from 'sanitize-html'
 import event from '@/mixins/event.js'
 import DetailsBin from '@/components/shared/DetailsBin'
 
@@ -41,7 +42,7 @@ export default {
         },
         {
           title: 'Description',
-          detail: this.description
+          detail: sanitizeHtml(this.description)
         }
       ]
     }

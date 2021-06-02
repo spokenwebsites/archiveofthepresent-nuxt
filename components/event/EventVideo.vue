@@ -1,7 +1,7 @@
 <template>
   <div v-if="featuredVideo">
     <h6 class="pt-3">video</h6>
-    <Videoplayer :video="featuredVideo" />
+    <Videoplayer :video="featuredVideo" :poster="featuredImage" />
   </div>
 </template>
 

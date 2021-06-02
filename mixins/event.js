@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html'
 import helpers from '@/mixins/helpers.js'
 
 export default {
@@ -122,7 +123,7 @@ export default {
       return this.event.venue
     },
     description() {
-      return this.event.description
+      return sanitizeHtml(this.event.description)
     },
     year() {
       return this.event.year

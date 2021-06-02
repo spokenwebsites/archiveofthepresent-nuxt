@@ -17,7 +17,8 @@
         {{ $dayjs(event.dates[0]).format('MMMM D, YYYY') }}
       </h5>
       <h2 class="pb-3">{{ eventTitle }}</h2>
-      <p class="pre-wrap pb-4 font-italic">{{ description }}</p>
+      <!-- eslint-disable-next-line vue/no-v-html-->
+      <p class="pre-wrap pb-4 font-italic" v-html="description"></p>
       <hr class="pb-1" />
       <div class="row">
         <div class="col px-1 px-sm-2">
@@ -28,7 +29,7 @@
             :waveform-filename="featuredAudio.waveform"
             :event="event"
           />
-          <Videoplayer v-if="featuredVideo" :video="featuredVideo" />
+          <Videoplayer v-if="featuredVideo" :video="featuredVideo" :poster="featuredImage" />
         </div>
       </div>
       <div class="row pt-2">
@@ -43,12 +44,13 @@
             ></b-img-lazy>
           </b-link>
         </div>
-        <div v-if="hasPhoto" class="col-sm-6">
+        <div v-if="hasPhoto && photos.length > 1" :class="{ 'col-sm-6': hasPoster, 'col-sm-12': !hasPoster }">
           <div class="row">
             <div
               v-for="(image, index) in photos"
               :key="'image' + index"
-              class="col-4 px-1 pb-2"
+              :class="{ 'col-4': hasPoster, 'col-2': !hasPoster }"
+              class="px-1 pb-2"
             >
               <b-link v-if="index < 6" :to="slug + '?image=' + index">
                 <b-img-lazy
@@ -93,4 +95,5 @@ export default {
   }
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+</style>
