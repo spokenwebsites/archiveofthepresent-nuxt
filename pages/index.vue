@@ -37,7 +37,7 @@ export default {
     const path = `${process.env.SERVER_BASE_URL}/file/aotp.json/`
     const params = { active: JSON.stringify(active) }
     const { data } = await axios.get(path, { params })
-    store.commit('events/setEvents', data.events)
+    store.commit('events/setEvents', data.events.filter(e => e))
     store.commit('events/setMaster', data.master)
   },
   data() {
