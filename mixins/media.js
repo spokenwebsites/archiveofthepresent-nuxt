@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getImage(image, size) {
-      const ext = image.ext.replace('pdf', 'jpg')
+      const ext = image?.ext?.replace('pdf', 'jpg')
       return require(`~/assets/${this.imagePath}/${image.basename}-${size}${ext}`)
     },
     getPdf(image) {
