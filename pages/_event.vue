@@ -26,11 +26,13 @@ import event from '@/mixins/event.js'
 import modals from '@/mixins/modals.js'
 import EventDetails from '@/components/event/EventDetails'
 import MediaModal from '@/components/event/MediaModal'
+import EventImages from '@/components/event/EventImages'
 
 export default {
   components: {
     MediaModal,
-    EventDetails
+    EventDetails,
+    EventImages
   },
   mixins: [helpers, media, event, modals],
   async asyncData({ params, store }) {
