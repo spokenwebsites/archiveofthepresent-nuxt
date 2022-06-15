@@ -24,8 +24,10 @@
 import helpers from '@/mixins/helpers.js'
 import events from '@/mixins/events.js'
 import filters from '@/mixins/filters.js'
+import EventCard from './EventCard.vue'
 
 export default {
-  mixins: [helpers, events, filters]
+  mixins: [helpers, events, filters],
+  components: { EventCard }
 }
 </script>
